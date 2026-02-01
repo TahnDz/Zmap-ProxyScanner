@@ -1,0 +1,174 @@
+{
+  "_comment": "Collection of raw socket test examples",
+  
+  "_example1_minecraft": {
+    "description": "Minecraft server test (mc.tahn.site:25565)",
+    "config": {
+      "raw_socket_test": {
+        "enabled": true,
+        "protocol": "tcp",
+        "target_host": "mc.tahn.site",
+        "target_port": 25565,
+        "send_hex": "1400860D6D632E7468616E2E696F2E766E63DD01",
+        "expect_response": true,
+        "response_min_size": 10,
+        "timeout": 5
+      },
+      "proxy-type": "socks5"
+    }
+  },
+  
+  "_example2_simple_tcp": {
+    "description": "Simple TCP connection test (no data sent)",
+    "config": {
+      "raw_socket_test": {
+        "enabled": true,
+        "protocol": "tcp",
+        "target_host": "8.8.8.8",
+        "target_port": 53,
+        "send_hex": "",
+        "expect_response": false,
+        "response_min_size": 0,
+        "timeout": 3
+      },
+      "proxy-type": "http"
+    }
+  },
+  
+  "_example3_http_get": {
+    "description": "Raw HTTP GET request",
+    "config": {
+      "raw_socket_test": {
+        "enabled": true,
+        "protocol": "tcp",
+        "target_host": "example.com",
+        "target_port": 80,
+        "send_hex": "474554202F20485454502F312E310D0A486F73743A206578616D706C652E636F6D0D0A0D0A",
+        "expect_response": true,
+        "response_min_size": 100,
+        "timeout": 5
+      },
+      "proxy-type": "socks4"
+    },
+    "note": "Hex is: GET / HTTP/1.1\\r\\nHost: example.com\\r\\n\\r\\n"
+  },
+  
+  "_example4_ssh_banner": {
+    "description": "SSH banner grab",
+    "config": {
+      "raw_socket_test": {
+        "enabled": true,
+        "protocol": "tcp",
+        "target_host": "github.com",
+        "target_port": 22,
+        "send_hex": "",
+        "expect_response": true,
+        "response_min_size": 20,
+        "timeout": 3
+      },
+      "proxy-type": "socks5"
+    },
+    "note": "SSH server sends banner on connect"
+  },
+  
+  "_example5_redis_ping": {
+    "description": "Redis PING command",
+    "config": {
+      "raw_socket_test": {
+        "enabled": true,
+        "protocol": "tcp",
+        "target_host": "redis.example.com",
+        "target_port": 6379,
+        "send_hex": "2A310D0A24340D0A50494E470D0A",
+        "expect_response": true,
+        "response_min_size": 5,
+        "timeout": 3
+      },
+      "proxy-type": "socks5"
+    },
+    "note": "Hex is: *1\\r\\n$4\\r\\nPING\\r\\n (Redis protocol)"
+  },
+  
+  "_example6_smtp_helo": {
+    "description": "SMTP HELO command",
+    "config": {
+      "raw_socket_test": {
+        "enabled": true,
+        "protocol": "tcp",
+        "target_host": "smtp.gmail.com",
+        "target_port": 25,
+        "send_hex": "",
+        "expect_response": true,
+        "response_min_size": 10,
+        "timeout": 5
+      },
+      "proxy-type": "http"
+    },
+    "note": "SMTP server sends banner on connect (220)"
+  },
+  
+  "_example7_dns_query_udp": {
+    "description": "DNS query via UDP (SOCKS5 only)",
+    "config": {
+      "raw_socket_test": {
+        "enabled": true,
+        "protocol": "udp",
+        "target_host": "8.8.8.8",
+        "target_port": 53,
+        "send_hex": "00010100000100000000000003777777076578616D706C6503636F6D0000010001",
+        "expect_response": true,
+        "response_min_size": 20,
+        "timeout": 3
+      },
+      "proxy-type": "socks5"
+    },
+    "note": "DNS query for www.example.com A record"
+  },
+  
+  "_example8_custom_protocol": {
+    "description": "Custom binary protocol",
+    "config": {
+      "raw_socket_test": {
+        "enabled": true,
+        "protocol": "tcp",
+        "target_host": "game.server.com",
+        "target_port": 7777,
+        "send_hex": "DEADBEEF0100000048656C6C6F",
+        "expect_response": true,
+        "response_min_size": 4,
+        "timeout": 5
+      },
+      "proxy-type": "socks4"
+    },
+    "note": "Custom game protocol: magic(4) + version(2) + length(2) + 'Hello'"
+  },
+  
+  "_actual_config_minecraft": {
+    "check-sites": [],
+    "raw_socket_test": {
+      "enabled": true,
+      "protocol": "tcp",
+      "target_host": "mc.tahn.site",
+      "target_port": 25565,
+      "send_hex": "1400860D6D632E7468616E2E696F2E766E63DD01",
+      "expect_response": true,
+      "response_min_size": 10,
+      "timeout": 5
+    },
+    "proxy-type": "socks5",
+    "http_threads": 500,
+    "headers": {
+      "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
+      "accept": "text/html,application/xhtml+xml,application/xml"
+    },
+    "print_ips": {
+      "enabled": true,
+      "display-ip-info": true
+    },
+    "timeout": {
+      "http_timeout": 5,
+      "socks4_timeout": 5,
+      "socks5_timeout": 5
+    }
+  }
+}
