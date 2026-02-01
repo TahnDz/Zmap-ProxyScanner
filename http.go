@@ -190,8 +190,8 @@ func (p *Proxy) CheckProxyHTTP(proxy string) {
 
 	// If raw socket test is enabled, use it instead of HTTP
 	if config.RawSocketTest.Enabled {
-		success := p.testRawSocketViaHTTPProxy(s[0], proxyPort)
-		if success {
+		isSuccess := p.testRawSocketViaHTTPProxy(s[0], proxyPort)
+		if isSuccess {
 			if config.PrintIps.Enabled {
 				go PrintProxy(s[0], proxyPort)
 			}
@@ -414,8 +414,8 @@ func (p *Proxy) CheckProxySocks4(proxy string) {
 
 	// If raw socket test is enabled, use custom target
 	if config.RawSocketTest.Enabled {
-		success := p.testRawSocketViaSocks4(s[0], proxyPort)
-		if success {
+		isSuccess := p.testRawSocketViaSocks4(s[0], proxyPort)
+		if isSuccess {
 			if config.PrintIps.Enabled {
 				go PrintProxy(s[0], proxyPort)
 			}
@@ -655,8 +655,8 @@ func (p *Proxy) CheckProxySocks5(proxy string) {
 
 	// If raw socket test is enabled, use custom target
 	if config.RawSocketTest.Enabled {
-		success := p.testRawSocketViaSocks5(s[0], proxyPort)
-		if success {
+		isSuccess := p.testRawSocketViaSocks5(s[0], proxyPort)
+		if isSuccess {
 			if config.PrintIps.Enabled {
 				go PrintProxy(s[0], proxyPort)
 			}
